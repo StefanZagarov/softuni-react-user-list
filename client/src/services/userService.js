@@ -10,7 +10,7 @@ export default {
             return users;
         }
         catch (error) {
-            console.log(error);
+            return error;
         }
     }
 };
