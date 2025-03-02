@@ -1,3 +1,5 @@
+import { formatIsoDate } from "../utils/dateTimeUtil";
+
 export default function UserListItem({ firstName, lastName, email, phone, createdAt, imageUrl }) {
     return (
         <tr>
@@ -8,7 +10,7 @@ export default function UserListItem({ firstName, lastName, email, phone, create
             <td>{lastName}</td>
             <td>{email}</td>
             <td>{phone}</td>
-            <td>{createdAt}</td>
+            <td>{formatIsoDate(createdAt)}</td>
 
             <td className="actions">
                 <button className="btn edit-btn" title="Edit">
