@@ -5,15 +5,21 @@ import userService from "../services/userService";
 import Pagination from "./Pagination";
 import SearchUser from "./SearchUser";
 import UserListItem from "./UserListItem";
+import CreateUser from "./CreateUser";
 
 export default function UserList() {
     const [users, setUser] = useState([]);
+    const [showCreate, setShowCreate] = useState(false);
 
     useEffect(() => {
         userService.getAll()
             .then(result => setUser(result))
             .catch(err => console.log(err));
     }, []);
+
+    function addUserClickHandler() {
+        setShowCreate(true);
+    }
 
 
     return (
@@ -142,7 +148,8 @@ export default function UserList() {
                 </div>
 
                 {/* <!-- New user button  --> */}
-                <button className="btn-add btn">Add new user</button>
+                <button className="btn-add btn" onClick={addUserClickHandler} >Add new user</button>
+                {showCreate && <CreateUser />}
 
                 <Pagination />
 
