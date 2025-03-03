@@ -6,10 +6,12 @@ import Pagination from "./Pagination";
 import SearchUser from "./SearchUser";
 import UserListItem from "./UserListItem";
 import CreateUser from "./CreateUser";
+import UserInfo from "./UserInfo";
 
 export default function UserList() {
     const [users, setUser] = useState([]);
     const [showCreate, setShowCreate] = useState(false);
+    const [userIdInfo, setUserIdInfo] = useState(null);
 
     useEffect(() => {
         userService.getAll()
@@ -38,6 +40,14 @@ export default function UserList() {
         setShowCreate(false);
     }
 
+    function userInfoClickHandler(userId) {
+        setUserIdInfo(userId);
+    }
+
+    function userInfoCloseHandler() {
+        setUserIdInfo(null);
+    }
+
 
     return (
         <>
@@ -49,7 +59,7 @@ export default function UserList() {
                 {/* <!-- Table component --> */}
                 <div className="table-wrapper">
 
-                    <div className="errors-temporary">
+                    <div className="errors-temporary-div">
 
                         {/* <!-- Overlap components  --> */}
 
@@ -159,7 +169,11 @@ export default function UserList() {
                         </thead>
                         <tbody>
                             {/* <!-- Table row component --> */}
-                            {users.map(user => <UserListItem key={user._id} {...user} />)}
+                            {users.map(user => <UserListItem
+                                key={user._id}
+                                {...user}
+                                onInfoClick={userInfoClickHandler}
+                            />)}
                         </tbody>
                     </table>
                 </div>
@@ -171,6 +185,13 @@ export default function UserList() {
                         onClose={closeAddUserWindowClickHandler}
                         onSave={saveAddUserEventHandler}
                     />}
+
+                {userIdInfo &&
+                    <UserInfo
+                        userId={userIdInfo}
+                        onClose={userInfoCloseHandler}
+                    />
+                }
 
                 <Pagination />
 

@@ -1,6 +1,6 @@
 import { formatIsoDate } from "../utils/dateTimeUtil";
 
-export default function UserListItem({ firstName, lastName, email, phone, createdAt, imageUrl }) {
+export default function UserListItem({ _id, firstName, lastName, email, phone, createdAt, imageUrl, onInfoClick }) {
     return (
         <tr>
             <td>
@@ -30,7 +30,7 @@ export default function UserListItem({ firstName, lastName, email, phone, create
                         </path>
                     </svg>
                 </button>
-                <button className="btn info-btn" title="Info">
+                <button className="btn info-btn" title="Info" onClick={() => onInfoClick(_id)}>
                     <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="info"
                         className="svg-inline--fa fa-info" role="img" xmlns="http://www.w3.org/2000/svg"
                         viewBox="-150 0 512 612">

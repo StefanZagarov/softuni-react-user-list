@@ -14,10 +14,22 @@ export default {
         }
     },
 
+    async getOne(userId) {
+        try {
+            const response = await fetch(`${baseUrl}/${userId}`);
+            const result = await response.json();
+
+            return result;
+        }
+        catch (error) {
+            return error;
+        }
+    },
+
     async create(userData) {
 
         // Getting the relevant properties to fix the structure of the object, the rest is left as is in a variable called "postData"
-        const { country, city, street, streetNumber, postData } = userData;
+        const { country, city, street, streetNumber, ...postData } = userData;
 
 
         // Fixing object structure and filling additional properties
