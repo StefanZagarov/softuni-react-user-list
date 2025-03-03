@@ -21,6 +21,23 @@ export default function UserList() {
         setShowCreate(true);
     }
 
+    function closeAddUserWindowClickHandler() {
+        setShowCreate(false);
+    }
+
+    async function saveAddUserEventHandler(e) {
+        e.preventDefault();
+
+        const formData = new FormData(e.target);
+        const formValues = Object.fromEntries(formData);
+
+        const newUser = await userService.create(formValues);
+
+        setUser(oldState => [...oldState, newUser]);
+
+        setShowCreate(false);
+    }
+
 
     return (
         <>
@@ -149,7 +166,11 @@ export default function UserList() {
 
                 {/* <!-- New user button  --> */}
                 <button className="btn-add btn" onClick={addUserClickHandler} >Add new user</button>
-                {showCreate && <CreateUser />}
+                {showCreate &&
+                    <CreateUser
+                        onClose={closeAddUserWindowClickHandler}
+                        onSave={saveAddUserEventHandler}
+                    />}
 
                 <Pagination />
 
